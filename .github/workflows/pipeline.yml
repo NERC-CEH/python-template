@@ -1,0 +1,13 @@
+name: Tests and Build Docs
+
+on: [push, pull_request]
+
+permissions:
+  contents: read
+
+jobs:
+  tests:
+    uses: ./.github/workflows/tests.yml
+  docs:
+    uses: ./.github/workflows/build-docs.yml
+    if: ${{ (github.event_name == 'pull_request' && github.head_ref != 'main') || (github.event_name == 'push' && github.ref_name != 'main') }}

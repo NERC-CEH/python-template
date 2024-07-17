@@ -1,16 +1,7 @@
 # Simple workflow for deploying static content to GitHub Pages
-name: Documentation Deployment
+name: Documentation Building
 
-on:
-  # Runs on pushes targeting the default branch
-  workflow_run:
-      workflows: ["Test Package"]
-      branches: ${{ github.head_ref }}
-      types:
-          - completed
-
-  # Allows you to run this workflow manually from the Actions tab
-  workflow_dispatch:
+on: [workflow_call]
 
 # Sets permissions of the GITHUB_TOKEN to allow deployment to GitHub Pages
 permissions:
@@ -26,11 +17,7 @@ concurrency:
 
 jobs:
   # Single deploy job since we're just deploying
-  deploy:
-    if: ${{ github.event.workflow_run.conclusion == 'success' }}
-    environment:
-      name: github-pages
-      url: ${{ steps.deployment.outputs.page_url }}
+  build:
     runs-on: ubuntu-latest
     steps:
       - name: Checkout
@@ -55,14 +42,4 @@ jobs:
       - name: Build Docs
         run: |
           pushd docs
-          . ./make.sh build
-      - name: Upload artifact
-        if: ${{ github.head_ref == 'main' || github.ref_name == 'main' }}
-        uses: actions/upload-pages-artifact@v3
-        with:
-          # Upload entire repository
-          path: 'docs/_build/html'
-      - name: Deploy to GitHub Pages
-        if: ${{ github.head_ref == 'main' || github.ref_name == 'main' }}
-        id: deployment
-        uses: actions/deploy-pages@v4
+          make html

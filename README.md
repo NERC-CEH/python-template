@@ -1,9 +1,9 @@
 # Python Project Template
 
-[![tests badge](https://github.com/NERC-CEH/python-template/actions/workflows/test.yml/badge.svg)](https://github.com/NERC-CEH/python-template/actions)
-[![docs badge](https://github.com/NERC-CEH/python-template/actions/workflows/doc-deployment.yml/badge.svg)](https://nerc-ceh.github.io/python-template/)
+[![tests badge](https://github.com/NERC-CEH/python-template/actions/workflows/pipeline.yml/badge.svg)](https://github.com/NERC-CEH/python-template/actions)
+[![docs badge](https://github.com/NERC-CEH/python-template/actions/workflows/deploy-docs.yml/badge.svg)](https://nerc-ceh.github.io/python-template/)
 
-[Read the docs!](https://nerc-ceh.github.io/iot-swarm/)
+[Read the docs!](https://nerc-ceh.github.io/python-template)
 
 This repository is a template for a basic Python project. Included here is:
 
@@ -29,4 +29,15 @@ make apidoc
 
 This will populate `./docs/sources/...` with `*.rst` files for each Python module, which may be included into the documentation.
 
-Documentation can then be built locally by running `make html`.
+Documentation can then be built locally by running `make html`, or found on the [GitHub Deployment](https://nerc-ceh.github.io/python-template).
+
+## Automatic Versioning
+
+This codebase is set up using [autosemver](https://autosemver.readthedocs.io/en/latest/usage.html#) a tool that uses git commit history to calculate the package version. Each time you make a commit, it increments the patch version by 1. You can increment by:
+
+* Normal commit. Use for bugfixes and small updates
+    * Increments patch version: `x.x.5 -> x.x.6`
+* Commit starts with `* NEW:`. Use for new features
+    * Increments minor version `x.1.x -> x.2.x`
+* Commit starts with `* INCOMPATIBLE:`. Use for API breaking changes
+    * Increments major version `2.x.x -> 3.x.x`

@@ -54,7 +54,7 @@ jobs:
       - name: Build Docs
         run: |
           pushd docs
-          . ./make.sh build
+          make html
       - name: Upload artifact
         if: ${{ github.head_ref == 'main' || github.ref_name == 'main' }}
         uses: actions/upload-pages-artifact@v3

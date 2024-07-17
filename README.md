@@ -50,4 +50,4 @@ The python code is packaged into a docker image and pushed to the AWS ECR. For t
 * Add 2 secrets to the GitHub Actions:
     * AWS_REGION: \<our-region\>
     * AWS_ROLE_ARN: \<the-IAM-role-used-to-deploy\>
-* Add a repository to the ECR
+* Add a repository to the ECR with the same name as the GitHub repo

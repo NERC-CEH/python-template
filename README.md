@@ -15,6 +15,7 @@ This repository is a template for a basic Python project. Included here is:
     * Installs and tests the package
     * Builds documentation on branches
     * Deploys documentation on main branch
+    * Deploys docker image to AWS ECR
 
 ## Building the Package Documentation
 
@@ -41,3 +42,12 @@ This codebase is set up using [autosemver](https://autosemver.readthedocs.io/en/
     * Increments minor version `x.1.x -> x.2.x`
 * Commit starts with `* INCOMPATIBLE:`. Use for API breaking changes
     * Increments major version `2.x.x -> 3.x.x`
+
+## Docker and the ECR
+
+The python code is packaged into a docker image and pushed to the AWS ECR. For the deployment to succeed you must:
+
+* Add 2 secrets to the GitHub Actions:
+    * AWS_REGION: \<our-region\>
+    * AWS_ROLE_ARN: \<the-IAM-role-used-to-deploy\>
+* Add a repository to the ECR

@@ -1,0 +1,22 @@
+name: Build the Docker Image
+
+on: [workflow_call]
+    
+permissions:
+  contents: read
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Clone the repo
+        uses: actions/checkout@v4
+      - name: Build with docker
+        env:
+          IMAGE_NAME: ${{ github.event.repository.name }}
+          IMAGE_TAG: latest
+        run: |
+          FULL_IMAGE=${ECR_REGISTRY}/${IMAGE_NAME}:${IMAGE_TAG}
+          docker build -t $FULL_IMAGE .
+
+

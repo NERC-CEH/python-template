@@ -1,0 +1,42 @@
+name: Deploy the Docker Image to ECR
+
+on:
+  # Runs on pushes targeting the default branch
+  workflow_run:
+      workflows: ["Tests and Build Docs"]
+      types:
+          - completed
+  
+  workflow_dispatch:
+    
+permissions:
+  id-token: write
+  contents: read
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Clone the repo
+        uses: actions/checkout@v4
+      - name: Configure AWS credentials
+        uses: aws-actions/configure-aws-credentials@v1.7.0
+        with:
+          role-to-assume: ${{ secrets.AWS_ROLE_ARN }}
+          role-session-name: GitHub_to_AWS_via_FederatedOIDC
+          aws-region: ${{ secrets.AWS_REGION }}
+      - name: Login to Amazon ECR
+        id: login-ecr
+        uses: aws-actions/amazon-ecr-login@v2
+      - name: Build with docker
+        env:
+          ECR_REGISTRY: ${{ steps.login-ecr.outputs.registry }}
+          IMAGE_NAME: ${{ github.event.repository.name }}
+          IMAGE_TAG: latest
+        run: |
+          FULL_IMAGE=${ECR_REGISTRY}/${IMAGE_NAME}:${IMAGE_TAG}
+          docker build -t $FULL_IMAGE .
+          docker push $FULL_IMAGE
+          echo "image=$FULL_IMAGE" >> $GITHUB_OUTPUT
+
+

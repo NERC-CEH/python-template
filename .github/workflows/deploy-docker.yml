@@ -12,16 +12,29 @@ jobs:
     steps:
       - name: Clone the repo
         uses: actions/checkout@v4
+      - name: Check file existence
+        id: check_file
+        run: |
+          if [ -f "Dockerfile" ]; then
+            file_exists="true"
+          else
+            file_exists="false"
+          fi
+
+          echo "file_exists=${file_exists}" >> $GITHUB_OUTPUT
       - name: Configure AWS credentials
+        if: steps.check_file.outputs.file_exists == 'true'
         uses: aws-actions/configure-aws-credentials@v1.7.0
         with:
           role-to-assume: ${{ secrets.AWS_ROLE_ARN }}
           role-session-name: GitHub_to_AWS_via_FederatedOIDC
           aws-region: ${{ secrets.AWS_REGION }}
       - name: Login to Amazon ECR
+        if: steps.check_file.outputs.file_exists == 'true'
         id: login-ecr
         uses: aws-actions/amazon-ecr-login@v2
       - name: Build with docker
+        if: steps.check_file.outputs.file_exists == 'true'
         env:
           ECR_REGISTRY: ${{ steps.login-ecr.outputs.registry }}
           IMAGE_NAME: ${{ github.event.repository.name }}
@@ -29,8 +42,6 @@ jobs:
         run: |
           FULL_IMAGE=${ECR_REGISTRY}/${IMAGE_NAME}:${IMAGE_TAG}
           docker build -t $FULL_IMAGE .
-      - name: Deploy docker image
-
-        run: docker push $FULL_IMAGE
+          docker push $FULL_IMAGE
 
 

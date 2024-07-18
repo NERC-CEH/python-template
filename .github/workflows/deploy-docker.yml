@@ -1,14 +1,6 @@
 name: Deploy the Docker Image to ECR
 
-on:
-  # Runs on pushes targeting the default branch
-  workflow_run:
-      workflows: ["Tests and Build Docs"]
-      branches: ["main"]
-      types:
-          - completed
-  
-  workflow_dispatch:
+on: [workflow_call]
     
 permissions:
   id-token: write
@@ -37,7 +29,8 @@ jobs:
         run: |
           FULL_IMAGE=${ECR_REGISTRY}/${IMAGE_NAME}:${IMAGE_TAG}
           docker build -t $FULL_IMAGE .
-          docker push $FULL_IMAGE
-          echo "image=$FULL_IMAGE" >> $GITHUB_OUTPUT
+      - name: Deploy docker image
+
+        run: docker push $FULL_IMAGE
 
 

@@ -5,12 +5,23 @@ on: [push, pull_request]
 permissions:
   contents: read
 
+env:
+  is_main_branch: ${{ github.event_name == 'push' && github.ref_name == 'main'}}
+  is_dev_branch: ${{ (github.event_name == 'pull_request' && github.head_ref != 'main') || (github.event_name == 'push' && github.ref_name != 'main') }}
 jobs:
   tests:
     uses: ./.github/workflows/tests.yml
-  docker:
+  test-docker:
     uses: ./.github/workflows/build-docker.yml
-    if: ${{ (github.event_name == 'pull_request' && github.head_ref != 'main') || (github.event_name == 'push' && github.ref_name != 'main') }}
-  docs:
+    if: ${{ env.is_dev_branch == "true" }}
+  deploy-docker:
+    uses: ./.github/workflows/build-docker.yml
+    if: ${{ env.is_main_branch == "true" }}
+    needs: tests
+  test-docs:
     uses: ./.github/workflows/build-docs.yml
-    if: ${{ (github.event_name == 'pull_request' && github.head_ref != 'main') || (github.event_name == 'push' && github.ref_name != 'main') }}
+    if: ${{ env.is_dev_branch == "true" }}
+  deploy-docs:
+    uses: ./.github/workflows/build-docs.yml
+    if: ${{ env.is_main_branch == "true" }}
+    needs: tests

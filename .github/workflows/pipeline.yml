@@ -4,24 +4,25 @@ on: [push, pull_request]
 
 permissions:
   contents: read
-
 env:
   is_main_branch: ${{ github.event_name == 'push' && github.ref_name == 'main'}}
   is_dev_branch: ${{ (github.event_name == 'pull_request' && github.head_ref != 'main') || (github.event_name == 'push' && github.ref_name != 'main') }}
+
+
 jobs:
   tests:
     uses: ./.github/workflows/tests.yml
   test-docker:
     uses: ./.github/workflows/build-docker.yml
-    if: ${{ env.is_dev_branch == "true" }}
+    if: ${{ (github.event_name == 'pull_request' && github.head_ref != 'main') || (github.event_name == 'push' && github.ref_name != 'main') }}
   deploy-docker:
     uses: ./.github/workflows/build-docker.yml
-    if: ${{ env.is_main_branch == "true" }}
+    if: ${{ github.event_name == 'push' && github.ref_name == 'main'}}
     needs: tests
   test-docs:
     uses: ./.github/workflows/build-docs.yml
-    if: ${{ env.is_dev_branch == "true" }}
+    if: ${{ (github.event_name == 'pull_request' && github.head_ref != 'main') || (github.event_name == 'push' && github.ref_name != 'main') }}
   deploy-docs:
     uses: ./.github/workflows/build-docs.yml
-    if: ${{ env.is_main_branch == "true" }}
+    if: ${{ github.event_name == 'push' && github.ref_name == 'main'}}
     needs: tests

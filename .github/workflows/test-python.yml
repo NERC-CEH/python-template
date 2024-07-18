@@ -32,7 +32,7 @@ jobs:
         pytest
     - name: Build badge
       run: |
-        mkdir -P .badges
+        mkdir -p .badges
         wget https://img.shields.io/badge/version-30%25-blue -O .badges/coverage
     - name: Upload coverage badge
       uses: actions/upload-artifact@v4

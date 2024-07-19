@@ -1,6 +1,7 @@
 """This module contains a single method, demonstrating the structure"""
 
-def add_int(x: int, y: int) -> int:
+
+def add_int(x: int, y) -> float:
     """Adds two integers together
 
     Args:

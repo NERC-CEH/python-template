@@ -33,7 +33,6 @@ if [ "$?" -eq 1 ]; then
 	err=1
 fi
 
-echo ""
 echo 'Running "ruff check"'
 ruff check
 

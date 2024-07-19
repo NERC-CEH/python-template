@@ -7,7 +7,7 @@ def add_int(x: int, y: int) -> int:
     Args:
         x: The first number
         y: The second number
-    
+
     Returns:
         int: The result
     """

@@ -16,14 +16,77 @@ This repository is a template for a basic Python project. Included here is:
     * Builds documentation on branches
     * Deploys documentation on main branch
     * Deploys docker image to AWS ECR
+* Githook to ensure linting and code checking
 
-## Building the Package Documentation
+## Getting Started
+
+### Using the Githook
+
+From the root directory of the repo, run:
+
+```
+git config --local core.hooksPath .githooks/
+```
+
+This will set this repo up to use the git hooks in the `.githooks/` directory. The hook runs `ruff format --check` and `ruff check` to prevent commits that are not formatted correctly or have errors. The hook intentionally does not alter the files, but informs the user which command to run.
+
+### Installing the package
+
+This package is configured to use optional dependencies based on what you are doing with the code.
+
+As a user, you would install the code with only the dependencies needed to run it:
+
+```
+pip install .
+```
+
+To work on the docs:
+
+```
+pip install -e .[docs]
+```
+
+To work on tests:
+
+```
+pip install -e .[tests]
+```
+
+To run the linter and githook:
+
+```
+pip install -e .[lint]
+```
+
+The docs, tests, and linter packages can be installed together with:
+
+```
+pip install -e .[dev]
+```
+
+### Making it Your Own
+
+This repo has a single package in the `./src/...` path called `project` (creative I know). Change this to the name of your package and update it in:
+
+* `docs/conf.py`
+* `src/**/*.py`
+* `tests/**/*.py`
+* `pyproject.toml`
+
+### Deploying Docs to GitHub Pages
+
+If you want docs to be published to github pages automatically, go to your repo settings and enable docs from GitHub Actions and the workflows will do the rest.
+
+### Building Docs Locally
 
 The documentation is driven by [Sphinx](https://www.sphinx-doc.org/) an industry standard for documentation with a healthy userbase and lots of add-ons. It uses `sphinx-apidoc` to generate API documentation for the codebase from Python docstrings.
 
 To run `sphinx-apidoc` run:
 
 ```
+# Install your package with optional dependencies for docs
+pip install -e .[docs]
+
 cd docs
 make apidoc
 ```
@@ -32,7 +95,18 @@ This will populate `./docs/sources/...` with `*.rst` files for each Python modul
 
 Documentation can then be built locally by running `make html`, or found on the [GitHub Deployment](https://nerc-ceh.github.io/python-template).
 
-## Automatic Versioning
+### Run the Tests
+
+To run the tests run:
+
+```
+#Install package with optional dependencies for testing
+pip install -e .[test]
+
+pytest
+```
+
+### Automatic Versioning
 
 This codebase is set up using [autosemver](https://autosemver.readthedocs.io/en/latest/usage.html#) a tool that uses git commit history to calculate the package version. Each time you make a commit, it increments the patch version by 1. You can increment by:
 
@@ -43,7 +117,7 @@ This codebase is set up using [autosemver](https://autosemver.readthedocs.io/en/
 * Commit starts with `* INCOMPATIBLE:`. Use for API breaking changes
     * Increments major version `2.x.x -> 3.x.x`
 
-## Docker and the ECR
+### Docker and the ECR
 
 The python code is packaged into a docker image and pushed to the AWS ECR. For the deployment to succeed you must:
 

@@ -15,6 +15,7 @@ description = "A minimal setup for a template package."
 test = ["pytest", "pytest-cov", "parameterized"]
 docs = ["sphinx", "sphinx-copybutton", "sphinx-rtd-theme"]
 lint = ["ruff"]
+dev = ["project[test,docs,lint]"]
 
 [tool.setuptools.dynamic]
 version = { attr = "project.__version__" }

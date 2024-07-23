@@ -73,6 +73,14 @@ This repo has a single package in the `./src/...` path called `mypackage` (creat
 * `tests/**/*.py`
 * `pyproject.toml`
 
+To make thing move a bit faster, use the script `./rename-package.sh` to rename all references of `mypackage` to whatever you like. For example:
+
+```
+./rename-package.sh "acoolnewname"
+```
+
+Will rename the package and all references to "acoolnewname"
+
 ### Deploying Docs to GitHub Pages
 
 If you want docs to be published to github pages automatically, go to your repo settings and enable docs from GitHub Actions and the workflows will do the rest.
@@ -125,3 +133,4 @@ The python code is packaged into a docker image and pushed to the AWS ECR. For t
     * AWS_REGION: \<our-region\>
     * AWS_ROLE_ARN: \<the-IAM-role-used-to-deploy\>
 * Add a repository to the ECR with the same name as the GitHub repo
+ 

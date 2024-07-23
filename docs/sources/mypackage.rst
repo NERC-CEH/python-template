@@ -1,11 +1,11 @@
 mypackage package
-===============
+=================
 
 Submodules
 ----------
 
 mypackage.module module
----------------------
+-----------------------
 
 .. automodule:: mypackage.module
    :members:

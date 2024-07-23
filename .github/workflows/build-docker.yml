@@ -11,6 +11,8 @@ jobs:
     steps:
       - name: Clone the repo
         uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
       - name: Check file existence
         id: check_file
         run: |

@@ -11,13 +11,13 @@ import os, sys
 path = os.path.abspath("../src")
 sys.path.append(path)
 
-import project as pkg
+import mypackage
 
 project = 'My Project'
 copyright = '2024, UKCEH'
 author = 'UKCEH'
 
-release = pkg.__version__
+release = mypackage.__version__
 version = release
 
 # -- General configuration ---------------------------------------------------

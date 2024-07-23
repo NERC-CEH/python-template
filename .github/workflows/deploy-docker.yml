@@ -1,6 +1,12 @@
 name: Deploy the Docker Image to ECR
 
-on: [workflow_call]
+on:
+  workflow_call:
+    secrets:
+      AWS_REGION:
+        required: true
+      AWS_ROLE_ARN:
+        required: true
     
 permissions:
   id-token: write

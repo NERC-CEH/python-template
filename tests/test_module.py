@@ -1,5 +1,5 @@
 import unittest
-from project.module import add_int
+from mypackage.module import add_int
 from parameterized import parameterized
 
 class TestModuleMethods(unittest.TestCase):

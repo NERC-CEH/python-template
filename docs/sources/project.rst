@@ -1,13 +1,13 @@
-project package
+mypackage package
 ===============
 
 Submodules
 ----------
 
-project.module module
+mypackage.module module
 ---------------------
 
-.. automodule:: project.module
+.. automodule:: mypackage.module
    :members:
    :undoc-members:
    :show-inheritance:
@@ -15,7 +15,7 @@ project.module module
 Module contents
 ---------------
 
-.. automodule:: project
+.. automodule:: mypackage
    :members:
    :undoc-members:
    :show-inheritance:

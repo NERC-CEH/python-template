@@ -66,7 +66,7 @@ pip install -e .[dev]
 
 ### Making it Your Own
 
-This repo has a single package in the `./src/...` path called `project` (creative I know). Change this to the name of your package and update it in:
+This repo has a single package in the `./src/...` path called `mypackage` (creative I know). Change this to the name of your package and update it in:
 
 * `docs/conf.py`
 * `src/**/*.py`

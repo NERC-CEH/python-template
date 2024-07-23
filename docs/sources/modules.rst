@@ -1,7 +1,7 @@
-project
+mypackage
 =======
 
 .. toctree::
    :maxdepth: 4
 
-   project
+   mypackage

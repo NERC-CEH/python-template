@@ -73,6 +73,14 @@ This repo has a single package in the `./src/...` path called `mypackage` (creat
 * `tests/**/*.py`
 * `pyproject.toml`
 
+To make thing move a bit faster, use the script `./rename-package.sh` to rename all references of `mypackage` to whatever you like. For example:
+
+```
+./rename-package.sh "acoolnewname"
+```
+
+Will rename the package and all references to "acoolnewname"
+
 ### Deploying Docs to GitHub Pages
 
 If you want docs to be published to github pages automatically, go to your repo settings and enable docs from GitHub Actions and the workflows will do the rest.

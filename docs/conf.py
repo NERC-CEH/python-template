@@ -6,11 +6,6 @@
 # -- Project information -----------------------------------------------------
 # https://www.sphinx-doc.org/en/master/usage/configuration.html#project-information
 
-import os, sys
-
-path = os.path.abspath("../src")
-sys.path.append(path)
-
 import mypackage
 
 project = 'My Project'

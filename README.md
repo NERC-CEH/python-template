@@ -81,6 +81,15 @@ To make thing move a bit faster, use the script `./rename-package.sh` to rename 
 
 Will rename the package and all references to "acoolnewname"
 
+After doing this it is recommended to also run:
+
+```
+cd docs
+make apidoc
+```
+
+To keep your documentation in sync with the package name. You may need to delete a file called `mypackage.rst` from `./docs/sources/...`
+
 ### Deploying Docs to GitHub Pages
 
 If you want docs to be published to github pages automatically, go to your repo settings and enable docs from GitHub Actions and the workflows will do the rest.

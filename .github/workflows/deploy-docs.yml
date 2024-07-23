@@ -17,7 +17,25 @@ concurrency:
 
 jobs:
   # Single deploy job since we're just deploying
+  check-pages:
+    runs-on: ubuntu-latest
+    outputs:
+      pages_enabled: ${{ steps.check.outputs.pages_enabled }}
+    steps:
+      - name: Check if GitHub Pages is enabled
+        id: check
+        run: |
+          PAGES_URL=$(curl -s -H "Authorization: token ${{ secrets.GITHUB_TOKEN }}" \
+          https://api.github.com/repos/${{ github.repository }}/pages | jq -r '.html_url')
+          if [ "$PAGES_URL" == "null" ]; then
+            echo "::set-output name=pages_enabled::false"
+          else
+            echo "::set-output name=pages_enabled::true"
+          fi
+          
   deploy:
+    needs: check-pages
+    if: ${{ needs.check-pages.outputs.pages_enabled == 'true' }}
     environment:
       name: github-pages
       url: ${{ steps.deployment.outputs.page_url }}

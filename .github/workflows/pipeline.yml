@@ -15,6 +15,7 @@ jobs:
     uses: NERC-CEH/dri-cicd/.github/workflows/build-docker.yml@test
     with:
       package_name: mypackage
+      test_image: false
     if: ${{ (github.event_name == 'pull_request' && github.head_ref != 'main') || (github.event_name == 'push' && github.ref_name != 'main') }}
   
   deploy-docker:

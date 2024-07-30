@@ -15,7 +15,7 @@ jobs:
     uses: NERC-CEH/dri-cicd/.github/workflows/build-docker.yml@test
     with:
       package_name: mypackage
-      test_image: false
+      test_image: "false"
 
     if: ${{ (github.event_name == 'pull_request' && github.head_ref != 'main') || (github.event_name == 'push' && github.ref_name != 'main') }}
   
@@ -41,3 +41,4 @@ jobs:
       pages_artifact_name: ${{ needs.build-docs.outputs.pages_artifact_name }}
     if: ${{ github.ref_name == 'main' || github.head_ref == 'main'}}
     needs: [test-python, build-docs, build-test-docker]
+    

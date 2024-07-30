@@ -2,7 +2,7 @@ on: [push, pull_request]
 
 jobs:
   run:
-    uses: ./.github/workflows/action.yml
+    uses: NERC-CEH/dri-cicd/.github.workflows/python-docs-docker-pipeline.yml@test
     with:
       package_name: mypackage
       build_docker: false

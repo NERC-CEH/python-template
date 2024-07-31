@@ -16,7 +16,6 @@ jobs:
     with:
       package_name: mypackage
       test_image: false
-    if: ${{ (github.event_name == 'pull_request' && github.head_ref != 'main') || (github.event_name == 'push' && github.ref_name != 'main') }}
   
   deploy-docker:
     uses: NERC-CEH/dri-cicd/.github/workflows/deploy-docker.yml@main
@@ -32,8 +31,7 @@ jobs:
 
   build-docs:
     uses: NERC-CEH/dri-cicd/.github/workflows/build-docs.yml@main
-    if: ${{ (github.event_name == 'pull_request' && github.head_ref != 'main') || (github.event_name == 'push' && github.ref_name != 'main') }}
-  
+
   deploy-docs:
     uses: NERC-CEH/dri-cicd/.github/workflows/deploy-docs.yml@main
     with:

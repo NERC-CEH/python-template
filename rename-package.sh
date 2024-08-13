@@ -6,5 +6,5 @@ if [ -z "$oldname" ]; then
     exit 1
 fi
 
-find tests src docs .github/workflows pyproject.toml README.md Dockerfile -type f -exec sed -i s/$oldname/${1}/g {} +
-mv src/$oldname src/$1
+find tests docs .github/workflows pyproject.toml README.md Dockerfile -type f -exec sed -i s/$oldname/${1}/g {} +
+mv $oldname $1

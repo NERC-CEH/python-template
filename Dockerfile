@@ -2,7 +2,7 @@
 FROM python:3.12-slim as build
 WORKDIR /app
 COPY pyproject.toml README.md /app/
-COPY src /app/src
+COPY mypackage /app/src/mypackage
 COPY .git /app/.git
 RUN pip install --upgrade pip pdm
 # Installs the codebase in editable mode into .venv

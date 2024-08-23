@@ -24,7 +24,7 @@ This repository is a template for a basic Python project. Included here is:
 
 From the root directory of the repo, run:
 
-```
+```console
 git config --local core.hooksPath .githooks/
 ```
 
@@ -32,37 +32,18 @@ This will set this repo up to use the git hooks in the `.githooks/` directory. T
 
 ### Installing the package
 
-This package is configured to use optional dependencies based on what you are doing with the code.
+You can install everything needed to run the project (even including
+Python) with [uv](https://docs.astral.sh/uv).
 
-As a user, you would install the code with only the dependencies needed to run it:
-
-```
-pip install .
-```
-
-To work on the docs:
-
-```
-pip install -e .[docs]
+```console
+uv sync
 ```
 
-To work on tests:
-
-```
-pip install -e .[tests]
-```
-
-To run the linter and githook:
-
-```
-pip install -e .[lint]
-```
-
-The docs, tests, and linter packages can be installed together with:
-
-```
-pip install -e .[dev]
-```
+It will set up a Python virtualenv in `.venv`.  Activate it as normal
+with `. .venv/bin/activate` or prefix commands with `uv run`.  In
+fact, `uv run` will automatically set things up with no need for `uv
+sync`.  You can add packages with `uv add` and remove them with `uv
+remove`.
 
 ### Making it Your Own
 
@@ -75,7 +56,7 @@ This repo has a single package in the `./src/...` path called `mypackage` (creat
 
 To make thing move a bit faster, use the script `./rename-package.sh` to rename all references of `mypackage` to whatever you like. For example:
 
-```
+```console
 ./rename-package.sh "acoolnewname"
 ```
 
@@ -83,7 +64,7 @@ Will rename the package and all references to "acoolnewname"
 
 After doing this it is recommended to also run:
 
-```
+```console
 cd docs
 make apidoc
 ```
@@ -100,10 +81,7 @@ The documentation is driven by [Sphinx](https://www.sphinx-doc.org/) an industry
 
 To run `sphinx-apidoc` run:
 
-```
-# Install your package with optional dependencies for docs
-pip install -e .[docs]
-
+```console
 cd docs
 make apidoc
 ```
@@ -116,10 +94,7 @@ Documentation can then be built locally by running `make html`, or found on the 
 
 To run the tests run:
 
-```
-#Install package with optional dependencies for testing
-pip install -e .[test]
-
+```console
 pytest
 ```
 
@@ -142,4 +117,3 @@ The python code is packaged into a docker image and pushed to the AWS ECR. For t
     * AWS_REGION: \<our-region\>
     * AWS_ROLE_ARN: \<the-IAM-role-used-to-deploy\>
 * Add a repository to the ECR with the same name as the GitHub repo
- 

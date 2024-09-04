@@ -19,18 +19,20 @@ fi
 # Redirect output to stderr.
 exec 1>&2
 
-RED='\033[0;31m'
-NC='\033[0m' # No Color
+warn () {
+	printf '\e[1;31m%s\e[0m\n' "$1"
+}
+
 format_err=0
 check_err=0
-err=0
+ret=0
 
 echo 'Running "ruff format --check"'
 ruff format --check
 
 if [ "$?" -eq 1 ]; then
 	format_err=1
-	err=1
+	ret=1
 fi
 
 echo 'Running "ruff check"'
@@ -38,17 +40,19 @@ ruff check
 
 if [ "$?" -eq 1 ]; then
 	check_err=1
-	err=1
+	ret=1
+fi
+
+if [ "${ret}" -eq 1] ; then
+	echo
 fi
 
 if [ "${format_err}" -eq 1 ] ; then
-	echo "${RED}Run \"ruff format\" before committing${NC}"
+	warn 'Run "ruff format" before committing'
 fi
 
 if [ "${check_err}" -eq 1 ] ; then
-	echo "${RED}Correct ruff errors before committing${NC}"
+	warn 'Correct ruff errors before committing'
 fi
 
-if [ "${err}" -eq 1 ] ; then
-	exit 1
-fi
+exit $ret

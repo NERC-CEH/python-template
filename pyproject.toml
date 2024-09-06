@@ -15,7 +15,7 @@ authors = [{ name = "John Doe", email = "johdoe@ceh.ac.uk" }]
 description = "A minimal setup for a template package."
 
 [dependency-groups]
-test = ["pytest", "pytest-cov", "parameterized"]
+test = ["pytest", "pytest-cov"]
 docs = ["sphinx", "sphinx-copybutton", "sphinx-rtd-theme"]
 lint = ["ruff"]
 dev = [
@@ -42,8 +42,6 @@ filterwarnings = [
 omit = ["*__init__.py", "src/mypackage/__main__.py"]
 
 [tool.ruff]
-src = ["src", "tests"]
-include = ["src/**.py"]
 line-length = 120
 
 [tool.ruff.lint]

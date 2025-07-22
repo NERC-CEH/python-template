@@ -8,9 +8,9 @@
 
 import mypackage
 
-project = 'My Project'
-copyright = '2024, UKCEH'
-author = 'UKCEH'
+project = "My Project"
+project_copyright = "2024, UKCEH"
+author = "UKCEH"
 
 release = mypackage.__version__
 version = release
@@ -37,13 +37,12 @@ intersphinx_mapping = {
     "python": ("https://docs.python.org/3", None),
 }
 
-templates_path = ['_templates']
-exclude_patterns = ['_build', 'Thumbs.db', '.DS_Store']
-
+templates_path = ["_templates"]
+exclude_patterns = ["_build", "Thumbs.db", ".DS_Store"]
 
 
 # -- Options for HTML output -------------------------------------------------
 # https://www.sphinx-doc.org/en/master/usage/configuration.html#options-for-html-output
 
-html_theme = 'sphinx_rtd_theme'
-html_static_path = ['_static']
+html_theme = "sphinx_rtd_theme"
+html_static_path = ["_static"]

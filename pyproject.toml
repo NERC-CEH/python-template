@@ -5,23 +5,11 @@ requires = ["setuptools >= 61.0", "autosemver"]
 requires-python = ">=3.12"
 dependencies = [
     "autosemver",
-    "dri-utils[all] @ git+https://github.com/NERC-CEH/dri-utils.git",
-    "fastapi",
-    "fastapi[standard]",
-    "setuptools",
-    "httpx",
-    "prometheus-fastapi-instrumentator",
-    "pyright[nodejs]",
-    "pydantic-settings",
-    "pre-commit",
-    "boto3>=1.36.24",
-    "mypy_boto3_s3",
-    "geojson",
-    "titiler",
-    "titiler.extensions",
-
+    # autosemver uses some deprecated setuptools APIs
+    # https://github.com/david-caro/python-autosemver/issues/56
+    "setuptools < 81",
 ]
-name = "dri-geospatial-api"
+name = "mypackage"
 dynamic = ["version"]
 authors = [{ name = "John Doe", email = "johdoe@ceh.ac.uk" }]
 description = "A minimal setup for a template package."
@@ -37,10 +25,10 @@ dev = [
 ]
 
 [tool.setuptools.dynamic]
-version = { attr = "geospatial_api.__version__" }
+version = { attr = "mypackage.__version__" }
 
 [tool.pytest.ini_options]
-addopts = "--cov=geospatial_api"
+addopts = "--cov=mypackage"
 markers = [
     "slow: Marks slow tests",
 ]
@@ -51,7 +39,7 @@ filterwarnings = [
 ]
 
 [tool.coverage.run]
-omit = ["*__init__.py", "src/dri-geospatial-api/__main__.py"]
+omit = ["*__init__.py", "src/mypackage/__main__.py"]
 
 [tool.ruff]
 line-length = 120
